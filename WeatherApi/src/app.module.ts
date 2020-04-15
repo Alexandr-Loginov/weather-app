@@ -1,11 +1,11 @@
 import { HttpModule, Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
 
-import { AppService } from './app.service';
-import { WeatherGateway } from './weather.gateway';
+import * as fromGateways from './gateways';
+import * as fromServices from './services';
 
 @Module({
     imports: [ScheduleModule.forRoot(), HttpModule],
-    providers: [AppService, WeatherGateway],
+    providers: [...fromServices.services, ...fromGateways.gateways],
 })
 export class AppModule {}

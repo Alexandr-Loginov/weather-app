@@ -4,7 +4,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { Socket } from 'socket.io';
 
-import { AppService } from './app.service';
+import { WeatherService } from '../services';
 
 @WebSocketGateway()
 export class WeatherGateway
@@ -12,7 +12,7 @@ export class WeatherGateway
     private logger: Logger = new Logger('WeatherGateway');
     private unsubscriber$ = new Subject<void>();
 
-    constructor(private weatherService: AppService) {}
+    constructor(private weatherService: WeatherService) {}
 
     @SubscribeMessage('changeLocation')
     public handleMessage(socket: Socket, data: string): void {

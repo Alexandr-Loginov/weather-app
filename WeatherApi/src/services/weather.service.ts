@@ -3,10 +3,10 @@ import { AxiosResponse } from 'axios';
 import { interval, Observable, of, Subject } from 'rxjs';
 import { catchError, map, switchMap, takeUntil } from 'rxjs/operators';
 
-import { IWeather, Queries } from './weather.model';
+import { IWeather, Queries } from '../models';
 
 @Injectable()
-export class AppService implements OnModuleDestroy {
+export class WeatherService implements OnModuleDestroy {
     private requestUrl = 'https://api.openweathermap.org/data/2.5/weather';
     private unsubscriber$ = new Subject<void>();
     private readonly interval = 1000;
@@ -25,9 +25,6 @@ export class AppService implements OnModuleDestroy {
         zip?,
         lang?,
         mode?,
-        lat?,
-        lon?,
-        id?,
     ): Observable<AxiosResponse<IWeather>> {
         return interval(this.interval).pipe(
             switchMap(() =>
