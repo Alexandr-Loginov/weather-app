@@ -1,0 +1,29 @@
+FROM node:12.13-alpine as development
+
+WORKDIR /usr/src/app
+
+COPY ./package*.json ./
+
+RUN npm install
+
+COPY . .
+
+RUN npm run build
+
+FROM node:12.13-alpine as production
+
+ARG NODE_ENV=production
+ENV NODE_ENV=${NODE_ENV}
+ENV WEATHER_API_KEY=1a1ab8dfee5172d0bef48b0c22c0cd2f
+
+WORKDIR /usr/src/app
+
+COPY package*.json ./
+
+RUN npm install --only=production
+
+COPY . .
+
+COPY --from=development /usr/src/app/dist ./dist
+
+CMD ["node", "dist/main"]

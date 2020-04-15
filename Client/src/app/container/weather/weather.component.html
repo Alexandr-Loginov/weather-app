@@ -1,0 +1,43 @@
+<div class="chart-container">
+    <app-temperature-chart
+        [temperature]="temperature"
+        class="chart"
+    ></app-temperature-chart>
+</div>
+
+<div class="form">
+    <label for="location-input" class="location-label">
+        Enter the city
+    </label>
+
+    <input
+        id="location-input"
+        class="location-input"
+        type="text"
+        placeholder="City"
+        [formControl]="placePickerField"
+    />
+
+    <button
+        class="location-submit"
+        [disabled]="placePickerField.invalid"
+        (click)="locate()"
+    >
+        Locate
+    </button>
+
+    <div
+        *ngIf="placePickerField.invalid && placePickerField.touched"
+        class="error-box"
+    >
+        Please provide the city before sending.
+    </div>
+
+    <div *ngIf="responseError" class="error-box">
+        Sorry, we didn't found your city
+    </div>
+
+    <div *ngIf="!responseError" class="location-label">
+        Current city is {{ currentCity }}
+    </div>
+</div>
