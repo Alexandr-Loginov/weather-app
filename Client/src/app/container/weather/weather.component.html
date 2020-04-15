@@ -37,7 +37,7 @@
         Sorry, we didn't found your city
     </div>
 
-    <div *ngIf="!responseError" class="location-label">
+    <div *ngIf="!responseError && currentCity" class="location-label">
         Current city is {{ currentCity }}
     </div>
 </div>
